@@ -60,20 +60,20 @@ static uint32_t shooter_u_bt_on_table[] = {
 				0,
 				GPIO_CFG_INPUT,
 				GPIO_CFG_NO_PULL,
-				GPIO_CFG_2MA),
+				GPIO_CFG_4MA),
 	
 	GPIO_CFG(SHOOTER_U_GPIO_BT_CHIP_WAKE,
 				0,
 				GPIO_CFG_OUTPUT,
 				GPIO_CFG_NO_PULL,
-				GPIO_CFG_2MA),
+				GPIO_CFG_4MA),
 
 	
 	GPIO_CFG(SHOOTER_U_GPIO_BT_RESET_N,
 				0,
 				GPIO_CFG_OUTPUT,
 				GPIO_CFG_NO_PULL,
-				GPIO_CFG_2MA),
+				GPIO_CFG_4MA),
 	
 	GPIO_CFG(SHOOTER_U_GPIO_BT_SHUTDOWN_N,
 				0,
@@ -120,20 +120,20 @@ static uint32_t shooter_u_bt_off_table[] = {
 				0,
 				GPIO_CFG_OUTPUT,
 				GPIO_CFG_NO_PULL,
-				GPIO_CFG_2MA),
+				GPIO_CFG_4MA),
 
 	
 	GPIO_CFG(SHOOTER_U_GPIO_BT_HOST_WAKE,
 				0,
 				GPIO_CFG_INPUT,
 				GPIO_CFG_PULL_DOWN,
-				GPIO_CFG_2MA),
+				GPIO_CFG_4MA),
 	
 	GPIO_CFG(SHOOTER_U_GPIO_BT_CHIP_WAKE,
 				0,
 				GPIO_CFG_OUTPUT,
 				GPIO_CFG_NO_PULL,
-				GPIO_CFG_2MA),
+				GPIO_CFG_4MA),
 };
 
 static void config_bt_table(uint32_t *table, int len)
@@ -196,17 +196,8 @@ static void shooter_u_config_bt_off(void)
 
 	
 	gpio_set_value(SHOOTER_U_GPIO_BT_UART1_RTS, 1);
-
-	
-
 	
 	gpio_set_value(SHOOTER_U_GPIO_BT_UART1_TX, 0);
-
-	
-
-
-	
-
 	
 	gpio_set_value(SHOOTER_U_GPIO_BT_CHIP_WAKE, 0);
 }
@@ -230,16 +221,6 @@ static int shooter_u_rfkill_probe(struct platform_device *pdev)
 	int rc = 0;
 	bool default_state = true; 
 
-#if 0 
-	rc = gpio_request(SHOOTER_U_GPIO_BT_RESET_N, "bt_reset");
-	if (rc)
-		goto err_gpio_reset;
-	rc = gpio_request(SHOOTER_U_GPIO_BT_SHUTDOWN_N, "bt_shutdown");
-	if (rc)
-		goto err_gpio_shutdown;
-#endif
-
-	
 	mdelay(2);
 
 	bluetooth_set_power(NULL, default_state);
@@ -263,12 +244,6 @@ static int shooter_u_rfkill_probe(struct platform_device *pdev)
 err_rfkill_reg:
 	rfkill_destroy(bt_rfk);
 err_rfkill_alloc:
-#if 0
-	gpio_free(SHOOTER_U_GPIO_BT_SHUTDOWN_N);
-err_gpio_shutdown:
-	gpio_free(SHOOTER_U_GPIO_BT_RESET_N);
-err_gpio_reset:
-#endif
 	return rc;
 }
 
@@ -276,10 +251,6 @@ static int shooter_u_rfkill_remove(struct platform_device *dev)
 {
 	rfkill_unregister(bt_rfk);
 	rfkill_destroy(bt_rfk);
-#if 0
-	gpio_free(SHOOTER_U_GPIO_BT_SHUTDOWN_N);
-	gpio_free(SHOOTER_U_GPIO_BT_RESET_N);
-#endif
 
 	return 0;
 }
