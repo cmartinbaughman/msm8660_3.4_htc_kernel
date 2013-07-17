@@ -374,6 +374,15 @@ obj-$(CONFIG_MACH_SHOOTER_U) += htc_util.o
 obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter_u-audio.o
 obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter_u-display.o
 
+obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter.o devices_htc.o
+obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter-keypad.o
+obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter-camera.o htc_awb_cal.o
+obj-$(CONFIG_MACH_SHOOTER_U) += htc_bdaddress.o board-shooter-rfkill.o
+obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter-mmc.o board-shooter-wifi.o htc_wifi_nvs.o
+obj-$(CONFIG_MACH_SHOOTER_U) += htc_util.o
+obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter-audio.o
+obj-$(CONFIG_MACH_SHOOTER_U) += board-shooter-display.o
+
 CFLAGS_msm_vibrator.o += -Idrivers/staging/android
 CFLAGS_board-9615.o += -Idrivers/usb/gadget
 
