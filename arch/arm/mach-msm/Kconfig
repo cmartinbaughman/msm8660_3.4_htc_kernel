@@ -2623,7 +2623,15 @@ config MACH_SHOOTER_U
         bool "Shooter_U"
         select FB_MSM_MIPI_DSI
         help
-          Support for the Shooter_U device.	  
+          Support for the Shooter_U device.
+          
+config MACH_SHOOTER
+	depends on ARCH_MSM8X60
+	default n
+	bool "Shooter"
+	select FB_MSM_MIPI_DSI
+	help
+	  Support for the Shooter device.
 
 config HTC_HEADSET_ONE_WIRE
 	tristate "HTC 1-wire headset detection driver"
